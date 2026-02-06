@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MediaArchive
@@ -11,16 +12,18 @@ namespace MediaArchive
 
         public void RemoveItem(Guid id) => Items.RemoveAll(i => i.Id == id);
 
-        public List<MediaItem> Search(string query)
+        public List<MediaItem> GetFilteredItems(string search, string genre)
         {
-            return Items.Where(i => i.Title.ToLower().Contains(query.ToLower()) ||
-                                    i.Author.ToLower().Contains(query.ToLower())).ToList();
-        }
+            var query = Items.AsEnumerable();
 
-        public List<MediaItem> FilterByGenre(string genre)
-        {
-            if (genre == "Все") return Items;
-            return Items.Where(i => i.Genre == genre).ToList();
+            if (!string.IsNullOrWhiteSpace(search))
+                query = query.Where(i => i.Title.Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                                         i.Author.Contains(search, StringComparison.OrdinalIgnoreCase));
+
+            if (!string.IsNullOrEmpty(genre) && genre != "Все")
+                query = query.Where(i => i.Genre == genre);
+
+            return query.ToList();
         }
     }
 }

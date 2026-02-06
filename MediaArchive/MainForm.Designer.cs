@@ -31,15 +31,15 @@
             txtSearch = new TextBox();
             cmbGenreFilter = new ComboBox();
             dataGridView1 = new DataGridView();
-            Name = new DataGridViewTextBoxColumn();
-            Author = new DataGridViewTextBoxColumn();
-            Year = new DataGridViewTextBoxColumn();
+            colName = new DataGridViewTextBoxColumn();
+            colAuthor = new DataGridViewTextBoxColumn();
+            colYear = new DataGridViewTextBoxColumn();
             panel1 = new Panel();
-            pbCover = new PictureBox();
-            lblTitleInfo = new Label();
-            lblGenreInfo = new Label();
-            lblRatingInfo = new Label();
             rtbDescription = new RichTextBox();
+            lblRatingInfo = new Label();
+            lblGenreInfo = new Label();
+            lblTitleInfo = new Label();
+            pbCover = new PictureBox();
             btnAdd = new Button();
             btnEdit = new Button();
             btnDelete = new Button();
@@ -70,44 +70,46 @@
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Name, Author, Year });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { colName, colAuthor, colYear });
             dataGridView1.Location = new Point(14, 61);
             dataGridView1.MultiSelect = false;
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(419, 415);
+            dataGridView1.Size = new Size(426, 415);
             dataGridView1.TabIndex = 2;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
-            // Name
+            // colName
             // 
-            Name.HeaderText = "Название";
-            Name.MinimumWidth = 6;
-            Name.Name = "Name";
-            Name.ReadOnly = true;
-            Name.Width = 125;
+            colName.HeaderText = "Название";
+            colName.MinimumWidth = 6;
+            colName.Name = "colName";
+            colName.ReadOnly = true;
+            colName.Width = 125;
             // 
-            // Author
+            // colAuthor
             // 
-            Author.HeaderText = "Автор/Режиссер";
-            Author.MinimumWidth = 6;
-            Author.Name = "Author";
-            Author.ReadOnly = true;
-            Author.Width = 125;
+            colAuthor.HeaderText = "Автор/Режиссер";
+            colAuthor.MinimumWidth = 6;
+            colAuthor.Name = "colAuthor";
+            colAuthor.ReadOnly = true;
+            colAuthor.Width = 125;
             // 
-            // Year
+            // colYear
             // 
-            Year.HeaderText = "Год";
-            Year.MinimumWidth = 6;
-            Year.Name = "Year";
-            Year.ReadOnly = true;
-            Year.Width = 125;
+            colYear.HeaderText = "Год";
+            colYear.MinimumWidth = 6;
+            colYear.Name = "colYear";
+            colYear.ReadOnly = true;
+            colYear.Width = 125;
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             panel1.Controls.Add(rtbDescription);
             panel1.Controls.Add(lblRatingInfo);
             panel1.Controls.Add(lblGenreInfo);
@@ -118,24 +120,23 @@
             panel1.Size = new Size(269, 415);
             panel1.TabIndex = 3;
             // 
-            // pbCover
+            // rtbDescription
             // 
-            pbCover.BorderStyle = BorderStyle.FixedSingle;
-            pbCover.Location = new Point(37, 20);
-            pbCover.Name = "pbCover";
-            pbCover.Size = new Size(200, 200);
-            pbCover.SizeMode = PictureBoxSizeMode.Zoom;
-            pbCover.TabIndex = 0;
-            pbCover.TabStop = false;
+            rtbDescription.Location = new Point(37, 298);
+            rtbDescription.Name = "rtbDescription";
+            rtbDescription.ReadOnly = true;
+            rtbDescription.Size = new Size(200, 104);
+            rtbDescription.TabIndex = 4;
+            rtbDescription.Text = "";
             // 
-            // lblTitleInfo
+            // lblRatingInfo
             // 
-            lblTitleInfo.AutoSize = true;
-            lblTitleInfo.Location = new Point(37, 237);
-            lblTitleInfo.Name = "lblTitleInfo";
-            lblTitleInfo.Size = new Size(38, 20);
-            lblTitleInfo.TabIndex = 1;
-            lblTitleInfo.Text = "Title";
+            lblRatingInfo.AutoSize = true;
+            lblRatingInfo.Location = new Point(185, 237);
+            lblRatingInfo.Name = "lblRatingInfo";
+            lblRatingInfo.Size = new Size(52, 20);
+            lblRatingInfo.TabIndex = 3;
+            lblRatingInfo.Text = "Rating";
             // 
             // lblGenreInfo
             // 
@@ -147,23 +148,24 @@
             lblGenreInfo.Text = "Genre";
             lblGenreInfo.Click += label1_Click;
             // 
-            // lblRatingInfo
+            // lblTitleInfo
             // 
-            lblRatingInfo.AutoSize = true;
-            lblRatingInfo.Location = new Point(185, 237);
-            lblRatingInfo.Name = "lblRatingInfo";
-            lblRatingInfo.Size = new Size(52, 20);
-            lblRatingInfo.TabIndex = 3;
-            lblRatingInfo.Text = "Rating";
+            lblTitleInfo.AutoSize = true;
+            lblTitleInfo.Location = new Point(37, 237);
+            lblTitleInfo.Name = "lblTitleInfo";
+            lblTitleInfo.Size = new Size(38, 20);
+            lblTitleInfo.TabIndex = 1;
+            lblTitleInfo.Text = "Title";
             // 
-            // rtbDescription
+            // pbCover
             // 
-            rtbDescription.Location = new Point(37, 298);
-            rtbDescription.Name = "rtbDescription";
-            rtbDescription.ReadOnly = true;
-            rtbDescription.Size = new Size(200, 104);
-            rtbDescription.TabIndex = 4;
-            rtbDescription.Text = "";
+            pbCover.BorderStyle = BorderStyle.FixedSingle;
+            pbCover.Location = new Point(37, 20);
+            pbCover.Name = "pbCover";
+            pbCover.Size = new Size(200, 200);
+            pbCover.SizeMode = PictureBoxSizeMode.Zoom;
+            pbCover.TabIndex = 0;
+            pbCover.TabStop = false;
             // 
             // btnAdd
             // 
@@ -173,6 +175,7 @@
             btnAdd.TabIndex = 4;
             btnAdd.Text = "Добавить новый объект";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnEdit
             // 
@@ -182,6 +185,7 @@
             btnEdit.TabIndex = 5;
             btnEdit.Text = "Редактировать выбранный";
             btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Click += btnEdit_Click;
             // 
             // btnDelete
             // 
@@ -191,6 +195,7 @@
             btnDelete.TabIndex = 6;
             btnDelete.Text = "Удалить";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnSave
             // 
@@ -200,6 +205,7 @@
             btnSave.TabIndex = 7;
             btnSave.Text = "Сохранить базу в JSON";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // MainForm
             // 
@@ -214,6 +220,7 @@
             Controls.Add(dataGridView1);
             Controls.Add(cmbGenreFilter);
             Controls.Add(txtSearch);
+            DoubleBuffered = true;
             Name = "MainForm";
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
@@ -229,9 +236,9 @@
         private TextBox txtSearch;
         private ComboBox cmbGenreFilter;
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn Name;
-        private DataGridViewTextBoxColumn Author;
-        private DataGridViewTextBoxColumn Year;
+        private DataGridViewTextBoxColumn colName;
+        private DataGridViewTextBoxColumn colAuthor;
+        private DataGridViewTextBoxColumn colYear;
         private Panel panel1;
         private PictureBox pbCover;
         private Label lblTitleInfo;
