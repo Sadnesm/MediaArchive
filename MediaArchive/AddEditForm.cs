@@ -62,13 +62,16 @@ namespace MediaArchive
             if (string.IsNullOrWhiteSpace(txtTitle.Text))
             {
                 MessageBox.Show("Название обязательно!");
+                this.DialogResult = DialogResult.None;
                 return;
             }
 
             Item.Title = txtTitle.Text;
             Item.Author = txtAuthor.Text;
             Item.Year = (int)numYear.Value;
-            Item.Genre = cmbGenre.SelectedItem.ToString();
+
+            Item.Genre = cmbGenre.SelectedItem?.ToString() ?? "Другое";
+
             Item.Rating = (int)numRating.Value;
             Item.Description = txtDesc.Text;
 

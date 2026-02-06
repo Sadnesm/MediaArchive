@@ -1,35 +1,63 @@
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+
 namespace MediaArchive
 {
     public partial class MainForm : Form
     {
         private LibraryManager manager = new LibraryManager();
+        private bool _isUpdating = false;
+
         public MainForm()
         {
             InitializeComponent();
 
             manager.Items = StorageService.Load();
-            cmbGenreFilter.SelectedIndex = 0;
+
+            txtSearch.TextChanged += (s, e) => UpdateGrid();
+            cmbGenreFilter.SelectedIndexChanged += (s, e) => UpdateGrid();
             dataGridView1.SelectionChanged += dataGridView1_SelectionChanged;
-            UpdateGrid(manager.Items);
+
+            if (cmbGenreFilter.Items.Count > 0) cmbGenreFilter.SelectedIndex = 0;
+
+            UpdateGrid();
         }
 
-        private void UpdateGrid(List<MediaItem> items)
+        private void UpdateGrid()
         {
-            dataGridView1.Rows.Clear();
-            foreach (var item in items)
-            {
-                int rowIndex = dataGridView1.Rows.Add(item.Title, item.Author, item.Year);
-                dataGridView1.Rows[rowIndex].Tag = item;
-            }
+            if (_isUpdating) return;
+            _isUpdating = true;
 
-            if (dataGridView1.Rows.Count > 0)
-                UpdateDetailsPanel((MediaItem)dataGridView1.Rows[0].Tag);
-            else
-                ClearDetailsPanel();
+            try
+            {
+                string search = txtSearch.Text;
+                string genre = cmbGenreFilter.SelectedItem?.ToString();
+
+                var items = manager.GetFilteredItems(search, genre);
+
+                dataGridView1.Rows.Clear();
+                foreach (var item in items)
+                {
+                    int rowIndex = dataGridView1.Rows.Add(item.Title, item.Author, item.Year);
+                    dataGridView1.Rows[rowIndex].Tag = item;
+                }
+
+                if (dataGridView1.Rows.Count > 0)
+                    UpdateDetailsPanel((MediaItem)dataGridView1.Rows[0].Tag);
+                else
+                    ClearDetailsPanel();
+            }
+            finally
+            {
+                _isUpdating = false;
+            }
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
+            if (_isUpdating) return;
+
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 var selectedItem = (MediaItem)dataGridView1.SelectedRows[0].Tag;
@@ -39,6 +67,7 @@ namespace MediaArchive
 
         private void UpdateDetailsPanel(MediaItem item)
         {
+            if (item == null) return;
             lblTitleInfo.Text = $"Название: {item.Title}";
             lblGenreInfo.Text = $"Жанр: {item.Genre}";
             lblRatingInfo.Text = $"Рейтинг: {item.Rating}/5";
@@ -53,16 +82,6 @@ namespace MediaArchive
             rtbDescription.Clear();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnAdd_Click(object sender, EventArgs e)
         {
             using (AddEditForm addForm = new AddEditForm())
@@ -70,7 +89,7 @@ namespace MediaArchive
                 if (addForm.ShowDialog() == DialogResult.OK)
                 {
                     manager.AddItem(addForm.Item);
-                    UpdateGrid(manager.Items);
+                    UpdateGrid();
                 }
             }
         }
@@ -84,7 +103,7 @@ namespace MediaArchive
                 {
                     if (editForm.ShowDialog() == DialogResult.OK)
                     {
-                        UpdateGrid(manager.Items);
+                        UpdateGrid();
                     }
                 }
             }
@@ -99,12 +118,10 @@ namespace MediaArchive
             if (dataGridView1.SelectedRows.Count > 0)
             {
                 var selectedItem = (MediaItem)dataGridView1.SelectedRows[0].Tag;
-                var confirm = MessageBox.Show($"Удалить '{selectedItem.Title}'?", "Подтверждение", MessageBoxButtons.YesNo);
-
-                if (confirm == DialogResult.Yes)
+                if (MessageBox.Show($"Удалить '{selectedItem.Title}'?", "Подтверждение", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
                     manager.RemoveItem(selectedItem.Id);
-                    UpdateGrid(manager.Items);
+                    UpdateGrid();
                 }
             }
         }
@@ -114,5 +131,9 @@ namespace MediaArchive
             StorageService.Save(manager.Items);
             MessageBox.Show("Данные успешно сохранены в library.json", "Успех");
         }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
+
+        private void label1_Click(object sender, EventArgs e) { }
     }
 }
