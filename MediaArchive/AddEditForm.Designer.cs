@@ -76,6 +76,7 @@
             // 
             cmbGenre.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbGenre.FormattingEnabled = true;
+            cmbGenre.Items.AddRange(new object[] { "Фильм", "Книга", "Игра" });
             cmbGenre.Location = new Point(21, 112);
             cmbGenre.Name = "cmbGenre";
             cmbGenre.Size = new Size(151, 28);
@@ -101,7 +102,7 @@
             // 
             // btnUploadCover
             // 
-            btnUploadCover.Location = new Point(638, 57);
+            btnUploadCover.Location = new Point(23, 319);
             btnUploadCover.Name = "btnUploadCover";
             btnUploadCover.Size = new Size(150, 29);
             btnUploadCover.TabIndex = 5;
@@ -112,7 +113,7 @@
             // lblCover
             // 
             lblCover.AutoSize = true;
-            lblCover.Location = new Point(638, 120);
+            lblCover.Location = new Point(21, 351);
             lblCover.Name = "lblCover";
             lblCover.Size = new Size(50, 20);
             lblCover.TabIndex = 6;
@@ -120,8 +121,9 @@
             // 
             // btnOk
             // 
+            btnOk.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnOk.DialogResult = DialogResult.OK;
-            btnOk.Location = new Point(21, 410);
+            btnOk.Location = new Point(19, 409);
             btnOk.Name = "btnOk";
             btnOk.Size = new Size(94, 29);
             btnOk.TabIndex = 7;
@@ -131,8 +133,9 @@
             // 
             // btnCancel
             // 
+            btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnCancel.DialogResult = DialogResult.Cancel;
-            btnCancel.Location = new Point(121, 410);
+            btnCancel.Location = new Point(119, 409);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(94, 29);
             btnCancel.TabIndex = 8;
@@ -200,7 +203,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(505, 450);
             Controls.Add(lblDesc);
             Controls.Add(lblYear);
             Controls.Add(lblGenre);
@@ -221,6 +224,7 @@
             Name = "AddEditForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "AddEditForm";
+            Load += AddEditForm_Load;
             ((System.ComponentModel.ISupportInitialize)numYear).EndInit();
             ((System.ComponentModel.ISupportInitialize)numRating).EndInit();
             ResumeLayout(false);

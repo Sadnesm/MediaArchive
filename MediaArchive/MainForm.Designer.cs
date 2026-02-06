@@ -117,22 +117,23 @@
             panel1.Controls.Add(pbCover);
             panel1.Location = new Point(512, 61);
             panel1.Name = "panel1";
-            panel1.Size = new Size(269, 415);
+            panel1.Size = new Size(269, 526);
             panel1.TabIndex = 3;
             // 
             // rtbDescription
             // 
-            rtbDescription.Location = new Point(37, 298);
+            rtbDescription.Location = new Point(37, 340);
             rtbDescription.Name = "rtbDescription";
             rtbDescription.ReadOnly = true;
-            rtbDescription.Size = new Size(200, 104);
+            rtbDescription.Size = new Size(200, 160);
             rtbDescription.TabIndex = 4;
             rtbDescription.Text = "";
+            rtbDescription.TextChanged += rtbDescription_TextChanged;
             // 
             // lblRatingInfo
             // 
             lblRatingInfo.AutoSize = true;
-            lblRatingInfo.Location = new Point(185, 237);
+            lblRatingInfo.Location = new Point(37, 296);
             lblRatingInfo.Name = "lblRatingInfo";
             lblRatingInfo.Size = new Size(52, 20);
             lblRatingInfo.TabIndex = 3;

@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace MediaArchive
@@ -72,6 +74,22 @@ namespace MediaArchive
             lblGenreInfo.Text = $"Жанр: {item.Genre}";
             lblRatingInfo.Text = $"Рейтинг: {item.Rating}/5";
             rtbDescription.Text = item.Description;
+
+            if (!string.IsNullOrEmpty(item.ImagePath) && File.Exists(item.ImagePath))
+            {
+                try
+                {
+                    pbCover.Image = Image.FromFile(item.ImagePath);
+                }
+                catch
+                {
+                    pbCover.Image = null;
+                }
+            }
+            else
+            {
+                pbCover.Image = null;
+            }
         }
 
         private void ClearDetailsPanel()
@@ -80,6 +98,7 @@ namespace MediaArchive
             lblGenreInfo.Text = "-";
             lblRatingInfo.Text = "-";
             rtbDescription.Clear();
+            pbCover.Image = null;
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -133,7 +152,11 @@ namespace MediaArchive
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
-
         private void label1_Click(object sender, EventArgs e) { }
+
+        private void rtbDescription_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

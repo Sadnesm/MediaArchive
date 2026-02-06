@@ -90,5 +90,15 @@ namespace MediaArchive
         {
 
         }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void AddEditForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
