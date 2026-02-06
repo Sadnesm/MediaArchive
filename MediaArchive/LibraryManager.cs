@@ -11,14 +11,12 @@ namespace MediaArchive
 
         public void RemoveItem(Guid id) => Items.RemoveAll(i => i.Id == id);
 
-        // Поиск по подстроке
         public List<MediaItem> Search(string query)
         {
             return Items.Where(i => i.Title.ToLower().Contains(query.ToLower()) ||
                                     i.Author.ToLower().Contains(query.ToLower())).ToList();
         }
 
-        // Фильтрация по жанру
         public List<MediaItem> FilterByGenre(string genre)
         {
             if (genre == "Все") return Items;
